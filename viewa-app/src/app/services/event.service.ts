@@ -30,6 +30,14 @@ export class EventService {
 
         params = "start=" + dateGroup.start.toISOString().substring(0, 10) + "&end=" + dateGroup.end.toISOString().substring(0, 10);
     }
+
+    if(eventType && eventType.length > 0 && eventType != "All"){
+      if(params.length> 0){
+        params+="&";
+      }
+      params+="eventType="+eventType;
+    }
+
     if(params && params.length > 0)
     {
         url += "?" + params;

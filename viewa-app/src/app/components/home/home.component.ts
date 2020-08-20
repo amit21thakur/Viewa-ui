@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { EventService } from 'src/app/services/event.service';
 import { ChartType, ChartOptions,  ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,13 @@ import { SingleDataSet, Color, Label, monkeyPatchChartJsLegend, monkeyPatchChart
 export class HomeComponent {
   rangeFormGroup:FormGroup;
 
+  isUserLoggedIn:boolean;
+  
+  selectedEventType:string = "";
   dataSource: EventModel[];
   charts: Chart[];
 
-  constructor(private eventService:EventService){
+  constructor(private eventService:EventService, private loginService:LoginService){
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
@@ -26,6 +30,12 @@ export class HomeComponent {
     this.rangeFormGroup = new FormGroup({  
       start: new FormControl(null, Validators.required),  
       end: new FormControl(null, Validators.required)  
+    });
+
+    this.isUserLoggedIn = this.loginService.loggedIn;
+    this.loginService.loggedInChanged
+    .subscribe( (loggedIn)=>{
+      this.isUserLoggedIn = loggedIn;
     });
   }
 
@@ -61,9 +71,12 @@ export class HomeComponent {
   public lineChartType = 'line';
   public lineChartPlugins = [];
 
+  updateEventType(newEventType:string){
+    this.selectedEventType = newEventType;
+  }
 
   applyFilter(){
-    this.eventService.getEvents(this.rangeFormGroup.value, null, null, null)
+    this.eventService.getEvents(this.rangeFormGroup.value, this.selectedEventType, null, null)
     .subscribe(result=>{
       this.dataSource = result.data;
       this.charts = result.charts;
