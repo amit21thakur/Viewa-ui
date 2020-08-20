@@ -16,6 +16,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ChartsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

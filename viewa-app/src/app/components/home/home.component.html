@@ -17,6 +17,18 @@
       </div>  
     </form>  
 
+    <div class="container " >
+        <div style="display: block;" class="w-50">
+            <canvas baseChart 
+              [data]="pieChartData" 
+              [labels]="pieChartLabels" 
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
+    </div>
 
 
     <div class="container" *ngIf="dataSource && dataSource.length>0">
