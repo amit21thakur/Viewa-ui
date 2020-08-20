@@ -6,7 +6,7 @@ import { TokenModel } from '../models/token.model';
 import { UserModel } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { EventModel, DateGroup } from '../models/event.model';
+import { EventModel, DateGroup, Result } from '../models/event.model';
 
 
 @Injectable()
@@ -36,7 +36,7 @@ export class EventService {
     }
 
 
-    return this.http.get<EventModel[]>(url);
+    return this.http.get<Result>(url);
   }
 
 
