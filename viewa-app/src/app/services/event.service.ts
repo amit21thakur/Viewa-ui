@@ -23,8 +23,16 @@ export class EventService {
       console.log('here');
     var url = this.baseUri + "Events";
 
-    if(dateGroup){
-        
+    var params = "";
+    if(dateGroup && dateGroup.start && dateGroup.end){
+        dateGroup.start.setDate(dateGroup.start.getDate() + 1);
+        dateGroup.end.setDate(dateGroup.end.getDate() + 2);
+
+        params = "start=" + dateGroup.start.toISOString().substring(0, 10) + "&end=" + dateGroup.end.toISOString().substring(0, 10);
+    }
+    if(params && params.length > 0)
+    {
+        url += "?" + params;
     }
 
 
