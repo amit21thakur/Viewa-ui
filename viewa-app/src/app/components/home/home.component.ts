@@ -3,8 +3,8 @@ import {EventModel, Chart} from '../../models/event.model';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule  } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import { EventService } from 'src/app/services/event.service';
-import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { ChartType, ChartOptions,  ChartDataSets } from 'chart.js';
+import { SingleDataSet, Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-home',
@@ -34,9 +34,32 @@ export class HomeComponent {
   };
   public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
   public pieChartData: SingleDataSet = [300, 500, 100];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
   public pieChartPlugins = [];
+
+  public genderChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public genderChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
+  public genderChartData: SingleDataSet = [300, 500, 100];
+  public genderChartPlugins = [];
+
+
+  public lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  ];
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,0,0,0.3)',
+    },
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [];
 
 
   applyFilter(){
@@ -46,6 +69,15 @@ export class HomeComponent {
       this.charts = result.charts;
       this.pieChartLabels = this.charts[0].names;
       this.pieChartData = this.charts[0].values;
+
+      this.genderChartLabels = this.charts[1].names;
+      this.genderChartData = this.charts[1].values;
+
+      this.lineChartLabels = this.charts[2].names;
+      
+      this.lineChartData = [
+        { data: this.charts[2].values, label: "Events" },
+      ];
     },
     error => {
       console.log(error);
