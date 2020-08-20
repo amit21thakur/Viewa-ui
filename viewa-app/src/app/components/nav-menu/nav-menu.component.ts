@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { UserModel } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,7 +10,27 @@ import { LoginService } from '../../services/login.service';
 export class NavMenuComponent {
   isExpanded = false;
 
-  constructor( public loginService: LoginService) { }
+  constructor( private loginService: LoginService) { }
+
+  userModel:UserModel;
+  isUserLoggedIn:boolean;
+  ngOnInit(){
+    this.userModel = this.loginService.userData;
+    this.loginService.userDataChanged
+    .subscribe( (userData)=>{
+      this.userModel = userData;
+    });
+
+    this.isUserLoggedIn = this.loginService.loggedIn;
+    this.loginService.loggedInChanged
+    .subscribe( (loggedIn)=>{
+      this.isUserLoggedIn = loggedIn;
+    });
+  }
+
+  logout(){
+    this.loginService.logout();
+  }
   collapse() {
     this.isExpanded = false;
   }

@@ -13,6 +13,7 @@ export class LoginComponent {
 
   private cookieName: string = "viewa-token";
 
+
   constructor(private loginService: LoginService,
     private cookieService: CookieService,
     private router: Router) { }
@@ -21,7 +22,7 @@ export class LoginComponent {
   password: string;
   
   ngOnInit() {
-    this.loginService.loggedIn = this.cookieService.check(this.cookieName);
+    this.loginService.updateLoggedIn(this.cookieService.check(this.cookieName));
   }
 
   loginSubmit() {
@@ -33,16 +34,16 @@ export class LoginComponent {
           this.cookieService.delete(this.cookieName);
         }
         this.cookieService.set(this.cookieName, token.token);
-        this.loginService.loggedIn = true;
+        this.loginService.updateLoggedIn( true);
         this.loginService.getUserData(this.username).subscribe(userData => {
-            this.loginService.userData = userData;
+            this.loginService.updateUserData(userData);
           }, error => {
               console.log('user data error');
               console.log(error);
         });
         this.router.navigateByUrl('');
       }, error => {
-          this.loginService.loggedIn = false;
+          this.loginService.updateLoggedIn( false);
           this.loginService.userData = new UserModel();
           console.error(error);
         });
