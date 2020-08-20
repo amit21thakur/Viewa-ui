@@ -1,0 +1,13 @@
+<h1 id="tableLabel" class="text-center">Sign In</h1>
+
+<div class="container w-50">
+  <div class="form-group">
+    <label for="usr">Username:</label>
+    <input type="text" class="form-control" id="usr" [(ngModel)]="username">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" [(ngModel)]="password">
+  </div>
+  <button type="button" class="btn btn-primary " (click)="loginSubmit()">Login</button>
+</div>
