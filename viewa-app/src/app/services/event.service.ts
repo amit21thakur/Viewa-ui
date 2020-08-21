@@ -38,6 +38,13 @@ export class EventService {
       params+="eventType="+eventType;
     }
 
+    if(gender && gender.length > 0 && gender != "All"){
+      if(params.length> 0){
+        params+="&";
+      }
+      params+="gender="+gender;
+    }
+
     if(params && params.length > 0)
     {
         url += "?" + params;

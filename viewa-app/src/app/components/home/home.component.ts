@@ -10,13 +10,16 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls:['./home.component.css']
 })
 export class HomeComponent {
   rangeFormGroup:FormGroup;
 
   isUserLoggedIn:boolean;
-  
+
   selectedEventType:string = "";
+  selectedGender:string="";
+  
   dataSource: EventModel[];
   charts: Chart[];
 
@@ -75,8 +78,12 @@ export class HomeComponent {
     this.selectedEventType = newEventType;
   }
 
+  updateGender(newGender:string){
+    this.selectedGender = newGender;
+  }
+
   applyFilter(){
-    this.eventService.getEvents(this.rangeFormGroup.value, this.selectedEventType, null, null)
+    this.eventService.getEvents(this.rangeFormGroup.value, this.selectedEventType, this.selectedGender, null)
     .subscribe(result=>{
       this.dataSource = result.data;
       this.charts = result.charts;

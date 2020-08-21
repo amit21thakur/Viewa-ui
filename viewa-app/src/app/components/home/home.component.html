@@ -1,33 +1,54 @@
 <div class="container">  
     <h1>Events Analysis</h1>  
     
-    <form [formGroup]="rangeFormGroup">  
-      <div>  
-        <mat-form-field appearance="fill">  
-          <mat-label>Enter a date range</mat-label>  
-          <mat-date-range-input [rangePicker]="picker">   
-            <input matStartDate placeholder="Start date" formControlName="start">  
-            <input matEndDate placeholder="End date" formControlName="end">  
-          </mat-date-range-input>  
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>  
-          <mat-date-range-picker #picker></mat-date-range-picker>  
-          <mat-error>Date Range is mandatory</mat-error>  
-        </mat-form-field>  
 
-        <select class="form-control w-25 ml-2" id="sel1" name="sellist1"  (change)="updateEventType($event.target.value)">
-          <option selected>All</option>
-          <option>Click</option>
-          <option>Hub</option>
-          <option>Image Gallery</option>
-          <option>Loved</option>
-          <option>Other</option>
-          <option>Scan</option>
-          <option>Switch to Fullscreen Video</option>
-        </select>
-        
-        <button type="button" class="btn btn-primary ml-2" (click)="applyFilter()">Apply</button>
-      </div>  
-    </form>  
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm-3" >
+          <form [formGroup]="rangeFormGroup">  
+            <mat-form-field appearance="fill">  
+              <mat-label>Enter a date range</mat-label>  
+              <mat-date-range-input [rangePicker]="picker">   
+                <input matStartDate placeholder="Start date" formControlName="start">  
+                <input matEndDate placeholder="End date" formControlName="end">  
+              </mat-date-range-input>  
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>  
+              <mat-date-range-picker #picker></mat-date-range-picker>  
+              <mat-error>Date Range is mandatory</mat-error>  
+            </mat-form-field>  
+          </form>
+        </div>
+        <div class="col-sm-3" >
+          <label class="lb-sm">Event Type</label>
+          <select class="form-control " id="sel1" name="sellist1"  (change)="updateEventType($event.target.value)">
+            <option selected>All</option>
+            <option>Click</option>
+            <option>Hub</option>
+            <option>Image Gallery</option>
+            <option>Loved</option>
+            <option>Other</option>
+            <option>Scan</option>
+            <option>Switch to Fullscreen Video</option>
+          </select>
+        </div>
+        <div class="col-sm-3" >
+          <label class="lb-sm">Gender</label>
+          <select class="form-control " id="sel2" name="sellist2"  (change)="updateGender($event.target.value)">
+            <option selected>All</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Not Specified</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="col-sm-3" >
+          <button type="button" class="btn btn-primary " (click)="applyFilter()">Apply</button>          
+        </div>
+      </div>
+    </div>
+
+       
+      
 
     <div class="container-fluid" *ngIf="isUserLoggedIn && dataSource && dataSource.length>0">
       <div class="row">
